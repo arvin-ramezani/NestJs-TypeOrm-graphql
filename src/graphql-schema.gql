@@ -1,0 +1,26 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Employee {
+  id: String!
+  firstName: String!
+  lastName: String!
+  designation: String!
+  city: String
+}
+
+type Query {
+  getAllEmployees: [Employee!]!
+}
+
+type Mutation {
+  createEmployee(employeeInput: createEmployeeDTO!): Employee!
+}
+
+input createEmployeeDTO {
+  firstName: String!
+  lastName: String!
+  designation: String!
+  city: String
+}
