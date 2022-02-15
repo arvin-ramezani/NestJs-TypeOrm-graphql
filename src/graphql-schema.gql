@@ -8,14 +8,39 @@ type Employee {
   lastName: String!
   designation: String!
   city: String
+  project: Project!
+  projectId: String!
+}
+
+type Project {
+  id: String!
+  name: String!
+  code: Int!
+  employees: [Employee!]
+}
+
+type Dog {
+  """Example field (placeholder)"""
+  exampleField: Int!
 }
 
 type Query {
   getAllEmployees: [Employee!]!
+  getEmployee(id: String!): Employee!
+  getAllProjects: [Project!]!
+  getProject(id: String!): Project!
+  dogs: [Dog!]!
+  dog(id: Int!): Dog!
 }
 
 type Mutation {
   createEmployee(employeeInput: createEmployeeDTO!): Employee!
+  createProject(createProject: CreateProjectInput!): Project!
+  updateProject(updateProjectInput: UpdateProjectInput!): Project!
+  removeProject(id: String!): Project!
+  createDog(createDogInput: CreateDogInput!): Dog!
+  updateDog(updateDogInput: UpdateDogInput!): Dog!
+  removeDog(id: Int!): Dog!
 }
 
 input createEmployeeDTO {
@@ -23,4 +48,27 @@ input createEmployeeDTO {
   lastName: String!
   designation: String!
   city: String
+  projectId: String!
+}
+
+input CreateProjectInput {
+  name: String!
+  code: Int!
+}
+
+input UpdateProjectInput {
+  id: String!
+  name: String!
+  code: Int!
+}
+
+input CreateDogInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateDogInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }

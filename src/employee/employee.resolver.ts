@@ -1,4 +1,12 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
+import { Project } from 'src/project/entities/project.entity';
 import { createEmployeeDTO } from './dto/create-employee.input';
 import { EmployeeService } from './employee.service';
 import { Employee } from './entities/employee.entity';
@@ -8,12 +16,22 @@ export class EmployeeResolver {
   constructor(private employeeService: EmployeeService) {}
 
   @Query(() => [Employee], { name: 'getAllEmployees' })
-  getAll() {
-    return this.employeeService.getAll();
+  findAll() {
+    return this.employeeService.findAll();
+  }
+
+  @Query(() => Employee, { name: 'getEmployee' })
+  findOne(@Args('id') employeeId: string) {
+    return this.employeeService.findOne(employeeId);
   }
 
   @Mutation(() => Employee, { name: 'createEmployee' })
   create(@Args('employeeInput') employee: createEmployeeDTO) {
     return this.employeeService.create(employee);
+  }
+
+  @ResolveField(() => Project)
+  project(@Parent() employee: Employee) {
+    return this.employeeService.getProject(employee.projectId);
   }
 }

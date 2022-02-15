@@ -3,11 +3,13 @@ import { EmployeeModule } from './employee/employee.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
-import { Employee } from './employee/entities/employee.entity';
+import { ProjectModule } from './project/project.module';
+import { DogsModule } from './dogs/dogs.module';
 
 @Module({
   imports: [
     EmployeeModule,
+    ProjectModule,
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/graphql-schema.gql'),
     }),
@@ -18,9 +20,10 @@ import { Employee } from './employee/entities/employee.entity';
       username: 'postgres',
       password: '123456',
       database: 'employee',
-      entities: [Employee],
+      entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    DogsModule,
   ],
   controllers: [],
   providers: [],
