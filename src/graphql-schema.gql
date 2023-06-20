@@ -20,8 +20,11 @@ type Project {
 }
 
 type Dog {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
+  name: String!
+  age: String!
+  gender: String!
+  price: Float!
 }
 
 type Query {
